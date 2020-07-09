@@ -8,7 +8,7 @@ var path = require('path');
     filter: true,   // Boolean | Function, file filter
   }
 */
-function copydirSync(from, to, options) {
+export function copydirSync(from, to, options) {
   if (typeof options === 'function') {
     options = {
       filter: options
@@ -101,5 +101,3 @@ function rewriteSync(f, options, stats, callback) {
   }
   return true;
 }
-
-module.exports = copydirSync;

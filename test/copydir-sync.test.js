@@ -1,5 +1,5 @@
 
-const copydir = require("../")
+const { copydirSync } = require("../dist");
 const path = require("path");
 const mkdirp = require("mkdirp");
 const rimraf = require("rimraf");
@@ -22,7 +22,7 @@ describe("copydir", () => {
     });
 
     it("should copy directory structure", () => {
-        copydir.sync(sourcePath, destination);
+        copydirSync(sourcePath, destination);
 
         utils.verifyFiles(destination, utils.allPaths);
     });
@@ -30,7 +30,7 @@ describe("copydir", () => {
     it("should filter out directories", () => {
         const filter = (state, _filepath, filename) => state != "directory" || filename === "sampleDir";
 
-        copydir.sync(sourcePath, destination, {filter});
+        copydirSync(sourcePath, destination, {filter});
 
         utils.verifyFiles(destination, utils.directoryFilterPaths);
     });
@@ -38,7 +38,7 @@ describe("copydir", () => {
     it("should filter out files", () => {
         const filter = (state) => state != "file";
 
-        copydir.sync(sourcePath, destination, {filter});
+        copydirSync(sourcePath, destination, {filter});
 
         utils.verifyFiles(destination, utils.fileFilterPaths);
     });
@@ -46,7 +46,7 @@ describe("copydir", () => {
     it("should filter based on file path", () => {
         const filter = (_state, filepath) => filepath.indexOf("Two") < 0;
 
-        copydir.sync(sourcePath, destination, {filter});
+        copydirSync(sourcePath, destination, {filter});
 
         utils.verifyFiles(destination, utils.folderNameFilterPaths);
     });
@@ -54,7 +54,7 @@ describe("copydir", () => {
     it("should filter based on file name", () => {
         const filter = (state, _filepath, fileName) => state !== "file" || fileName.indexOf("Two") < 0;
 
-        copydir.sync(sourcePath, destination, {filter});
+        copydirSync(sourcePath, destination, {filter});
 
         utils.verifyFiles(destination, utils.fileNameFilterPaths);
     });

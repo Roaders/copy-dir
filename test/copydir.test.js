@@ -1,5 +1,5 @@
 
-const copydir = require("../")
+const { copydir } = require("../dist");
 const path = require("path");
 const mkdirp = require("mkdirp");
 const rimraf = require("rimraf");
@@ -22,7 +22,7 @@ describe("copydir", () => {
     });
 
     it("should copy directory structure", done => {
-        copydir(sourcePath, destination, err => {
+        copydir(sourcePath, destination, {}, err => {
             if(err != null){
                 throw err;
             }
